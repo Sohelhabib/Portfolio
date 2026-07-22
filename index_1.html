@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Md Sohel Habib — Security Engineer & Builder</title>
+<meta name="description" content="Md Sohel Habib — MSc Cybersecurity, founder of GradLaunch. Full-stack builder shipping live, secure products.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08080b;
+    --panel:#111114;
+    --line:#232327;
+    --ink:#f4f4f2;
+    --ink-dim:#9a9a9f;
+    --ink-faint:#5f5f66;
+    --accent:#8dff3c;               /* reference green */
+    --display:'Anton',Impact,sans-serif;
+    --wide:'Archivo',sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--accent);color:#0b0b0d}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 40px}
+  @media(max-width:640px){.wrap{padding:0 20px}}
+
+  /* ---------- celestial background ---------- */
+  .cosmos{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;
+    background:
+      radial-gradient(1200px 700px at 80% -10%,rgba(141,255,60,.10),transparent 60%),
+      radial-gradient(1000px 800px at 6% 22%,rgba(88,120,255,.14),transparent 62%),
+      radial-gradient(1100px 900px at 62% 100%,rgba(180,80,255,.12),transparent 60%),
+      radial-gradient(900px 700px at 28% 72%,rgba(255,90,160,.07),transparent 65%),
+      #06060a;}
+  .cosmos::before,.cosmos::after{content:"";position:absolute;inset:-20%;background:inherit;filter:blur(60px);opacity:.65;animation:drift 34s ease-in-out infinite alternate}
+  .cosmos::after{animation-duration:46s;animation-direction:alternate-reverse;opacity:.45}
+  @keyframes drift{0%{transform:translate(-3%,-2%) scale(1.05) rotate(0)}100%{transform:translate(4%,3%) scale(1.15) rotate(8deg)}}
+  #sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+  @media(prefers-reduced-motion:reduce){.cosmos::before,.cosmos::after{animation:none}}
+
+  /* ---------- chrome objects (CSS/SVG, no downloads) ---------- */
+  .chrome{position:absolute;pointer-events:none;z-index:1;filter:drop-shadow(0 24px 40px rgba(0,0,0,.6))}
+  .chrome.spin{animation:spin 26s linear infinite}
+  .chrome.spin-r{animation:spin 30s linear infinite reverse}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){.chrome.spin,.chrome.spin-r{animation:none}}
+
+  /* ---------- nav ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:60;backdrop-filter:blur(10px);background:rgba(8,8,11,.55);border-bottom:1px solid transparent;transition:border-color .3s}
+  nav.scrolled{border-color:var(--line)}
+  .nav-inner{max-width:1280px;margin:0 auto;padding:18px 40px;display:flex;justify-content:space-between;align-items:center}
+  .brand{font-family:var(--wide);font-weight:800;font-size:16px;letter-spacing:.02em;text-transform:uppercase}
+  .brand span{color:var(--accent)}
+  .nav-links{display:flex;gap:28px;font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:600}
+  .nav-links a{color:var(--ink-dim);transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  @media(max-width:760px){.nav-links{display:none}.nav-inner{padding:16px 20px}}
+
+  /* ============ HERO (matches reference) ============ */
+  header{position:relative;padding:130px 0 70px;z-index:2}
+  .hero-top{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:start}
+  @media(max-width:920px){.hero-top{grid-template-columns:1fr}}
+  .hero-tag{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--accent);margin-bottom:6px;position:relative;z-index:3}
+  h1{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(46px,8vw,104px);line-height:.92;letter-spacing:.005em;text-shadow:0 6px 30px rgba(0,0,0,.5);position:relative;z-index:3}
+  h1 .l{display:block;overflow:hidden}
+  h1 .l span{display:block;transform:translateY(110%);animation:rise .9s cubic-bezier(.16,.84,.3,1) forwards}
+  h1 .l:nth-child(2) span{animation-delay:.1s}
+  h1 .l:nth-child(3) span{animation-delay:.2s}
+  @keyframes rise{to{transform:none}}
+  .hero-sub{margin-top:22px;max-width:420px;color:var(--ink-dim);font-size:15px;position:relative;z-index:3}
+  .hero-sub b{color:var(--ink);font-weight:600}
+  /* chrome flower — top-left like reference, but BEHIND the text */
+  .flower{width:190px;height:190px;top:-6px;left:-30px;right:auto;z-index:0}
+  @media(max-width:920px){.flower{width:130px;height:130px;left:-10px;top:-10px}}
+  /* chrome knot mid-right */
+  .knot{width:150px;height:150px;top:210px;left:38%}
+  @media(max-width:920px){.knot{display:none}}
+
+  /* project thumbnails pinned top-right (reference) */
+  .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:920px){.thumbs{margin-top:30px}}
+  .thumb{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);aspect-ratio:3/4;background:rgba(17,17,20,.72);backdrop-filter:blur(6px);transition:transform .35s,border-color .35s;display:flex;flex-direction:column;justify-content:flex-end;padding:14px}
+  .thumb:hover{transform:translateY(-5px);border-color:#333}
+  .thumb .glow{position:absolute;inset:0;opacity:.55;background:radial-gradient(120% 90% at 60% 0%,var(--c),transparent 55%)}
+  .thumb .t-live{position:absolute;top:12px;left:12px;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(141,255,60,.35);border-radius:100px;padding:3px 8px;background:rgba(141,255,60,.06);z-index:2}
+  .thumb .t-name{position:relative;z-index:2;font-family:var(--wide);font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:.01em}
+  .thumb .t-go{position:relative;z-index:2;font-size:10px;color:var(--ink-dim);margin-top:2px}
+  .hero-year{margin-top:14px;text-align:right;font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--accent)}
+
+  /* ============ ABOUT (3-col: heading | photo | bio) ============ */
+  section{position:relative;padding:90px 0;z-index:2}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:18px}
+  .kicker b{color:var(--accent)}
+  .about-grid{display:grid;grid-template-columns:1fr 1.05fr 1fr;gap:40px;align-items:center}
+  @media(max-width:960px){.about-grid{grid-template-columns:1fr;gap:34px}}
+  .about-head h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(30px,4.4vw,50px);line-height:1;margin-bottom:26px}
+  .socials{display:flex;gap:18px}
+  .socials a{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);transition:color .2s}
+  .socials a:hover{color:var(--accent)}
+  .about-photo{border-radius:14px;overflow:hidden;aspect-ratio:4/5;background:linear-gradient(150deg,#17171b,#0c0c10);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+  .about-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.05)}
+  .about-photo .ph{text-align:center;color:var(--ink-faint);font-size:12px;padding:24px}
+  .about-photo .ph .ico{font-size:52px;color:#2a2a2f;margin-bottom:12px}
+  .about-bio .name{font-family:var(--wide);font-weight:800;font-size:26px;text-transform:uppercase;margin-bottom:14px}
+  .about-bio .name em{font-style:normal;color:var(--accent)}
+  .about-bio p{color:var(--ink-dim);font-size:14.5px;margin-bottom:20px}
+  .about-bio p b{color:var(--ink);font-weight:600}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:14px 24px;border-radius:100px;transition:all .2s}
+  .btn-line{border:1px solid var(--line);color:var(--ink)}
+  .btn-line:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .btn-fill{background:var(--accent);color:#0a1a04}
+  .btn-fill:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(141,255,60,.28)}
+
+  /* ============ WHAT I DO ============ */
+  .do{position:relative;overflow:hidden}
+  .do-blob{width:150px;height:150px;bottom:20px;right:3%}
+  @media(max-width:760px){.do-blob{display:none}}
+  .big-head{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(34px,6vw,72px);line-height:.95;margin-bottom:44px}
+  .big-head em{font-style:normal;color:var(--accent)}
+  .do-list{border-top:1px solid var(--line)}
+  .do-row{display:grid;grid-template-columns:60px 1fr auto;gap:24px;padding:28px 0;border-bottom:1px solid var(--line);align-items:center;transition:padding-left .3s;position:relative}
+  .do-row:hover{padding-left:14px}
+  .do-row .rn{font-family:var(--wide);font-weight:800;color:var(--ink-faint);font-size:14px}
+  .do-row .rt{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,3vw,34px);line-height:1}
+  .do-row:hover .rt{color:var(--accent)}
+  .do-row .rd{color:var(--ink-dim);font-size:13.5px;max-width:360px;text-align:right}
+  @media(max-width:760px){.do-row{grid-template-columns:1fr;gap:8px}.do-row .rd{text-align:left}.do-row .rn{display:none}}
+
+  /* ============ PHOTOGRAPHY ============ */
+  .photo-masonry{columns:3;column-gap:16px}
+  @media(max-width:900px){.photo-masonry{columns:2}}
+  @media(max-width:560px){.photo-masonry{columns:1}}
+  .shot{position:relative;break-inside:avoid;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(150deg,#16161a,#0c0c10);transition:transform .35s,border-color .35s;display:flex;align-items:center;justify-content:center}
+  .shot:hover{transform:translateY(-5px);border-color:#333}
+  .shot img{width:100%;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .shot:hover img{transform:scale(1.05)}
+  .shot .cap{position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(transparent,rgba(6,6,10,.85));opacity:0;transform:translateY(8px);transition:.3s}
+  .shot:hover .cap{opacity:1;transform:none}
+  .shot .cap span{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .shot.ph-cell{aspect-ratio:var(--ar,4/5)}
+  .shot.ph-cell .plc{text-align:center;color:var(--ink-faint);font-size:11px;padding:22px}
+  .shot.ph-cell .plc .ico{font-size:34px;color:#2a2a2f;margin-bottom:8px}
+
+  /* ============ TESTIMONIAL ============ */
+  .quote{position:relative;overflow:hidden}
+  .q-blob{width:160px;height:160px;bottom:-30px;left:4%}
+  @media(max-width:760px){.q-blob{display:none}}
+  .q-inner{max-width:760px;margin-left:auto}
+  .q-mark{font-family:var(--display);font-size:80px;line-height:.4;color:var(--accent)}
+  .q-inner blockquote{font-family:var(--wide);font-weight:800;text-transform:uppercase;font-size:clamp(22px,3.4vw,38px);line-height:1.08;margin:12px 0 24px}
+  .q-inner blockquote em{font-style:normal;color:var(--accent)}
+  .q-who{display:flex;align-items:center;gap:14px}
+  .q-who .av{width:46px;height:46px;border-radius:50%;background:linear-gradient(140deg,#26262b,#111);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--wide);font-weight:800;color:var(--ink-dim)}
+  .q-who .m strong{display:block;font-size:14px}
+  .q-who .m span{font-size:13px;color:var(--ink-faint)}
+
+  /* ============ CONNECT ============ */
+  .connect{position:relative;overflow:hidden;padding:110px 0 40px}
+  .c-blob{width:150px;height:150px;top:40px;right:5%}
+  @media(max-width:760px){.c-blob{display:none}}
+  .c-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;position:relative;z-index:2}
+  @media(max-width:760px){.c-grid{grid-template-columns:1fr;gap:26px}}
+  .connect h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(64px,15vw,190px);line-height:.82}
+  .connect h2 a{transition:color .2s}
+  .connect h2 a:hover{color:var(--accent)}
+  .c-side .lead{color:var(--ink-dim);max-width:320px;margin-bottom:22px;font-size:14.5px}
+  .foot{margin-top:70px;padding-top:26px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;position:relative;z-index:2}
+  .foot .fnav{display:flex;gap:26px;flex-wrap:wrap;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em}
+  .foot .fnav a{color:var(--ink-dim);transition:color .2s}
+  .foot .fnav a:hover{color:var(--ink)}
+  .foot .fsoc{display:flex;gap:18px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+  .foot .fsoc a{color:var(--ink-dim);transition:color .2s}
+  .foot .fsoc a:hover{color:var(--accent)}
+  .foot .cpy{width:100%;font-size:12px;color:var(--ink-faint);margin-top:8px}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}h1 .l span{animation:none;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="cosmos"></div>
+<canvas id="sky"></canvas>
+
+<!-- reusable SVG chrome defs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="chrome" cx="34%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="18%" stop-color="#e2e6ec"/>
+      <stop offset="38%" stop-color="#aeb6c4"/>
+      <stop offset="55%" stop-color="#7c8798"/>
+      <stop offset="70%" stop-color="#c9cfda"/>
+      <stop offset="84%" stop-color="#5a6474"/>
+      <stop offset="100%" stop-color="#e8ebf0"/>
+    </radialGradient>
+    <radialGradient id="chromeIri" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="rgba(141,255,60,0)"/>
+      <stop offset="55%" stop-color="rgba(120,150,255,.35)"/>
+      <stop offset="80%" stop-color="rgba(255,120,200,.28)"/>
+      <stop offset="100%" stop-color="rgba(141,255,60,.2)"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="brand">Md<span>.</span>SOHEL<span>.</span>HABIB</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#do">What I Do</a>
+      <a href="#photo">Photos</a>
+      <a href="#work">Projects</a>
+      <a href="#connect">Connect</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header>
+  <div class="wrap">
+    <div class="hero-top">
+      <div style="position:relative">
+        <!-- chrome flower (SVG, 12 petals) -->
+        <svg class="chrome flower spin" viewBox="0 0 200 200" aria-hidden="true">
+          <g transform="translate(100,100)">
+            <!-- petals -->
+            <g id="petals"></g>
+            <circle r="20" fill="url(#chrome)"/>
+            <circle r="20" fill="url(#chromeIri)" style="mix-blend-mode:screen"/>
+          </g>
+        </svg>
+        <div class="hero-tag">Hi, I'm Sohel!</div>
+        <h1>
+          <span class="l"><span>Building &</span></span>
+          <span class="l"><span>securing</span></span>
+          <span class="l"><span>real products</span></span>
+        </h1>
+        <p class="hero-sub">I'm a graduate founder & <b>MSc Cybersecurity</b> student on a mission to ship full-stack products that are secure by design.</p>
+
+        <!-- chrome knot -->
+        <svg class="chrome knot spin-r" viewBox="0 0 150 150" aria-hidden="true">
+          <g transform="translate(75,75)">
+            <path d="M0,-46 C30,-46 46,-20 30,4 C18,22 40,40 20,52 C0,64 -30,46 -30,20 C-30,-8 -30,-46 0,-46 Z"
+                  fill="url(#chrome)"/>
+            <path d="M0,-46 C30,-46 46,-20 30,4 C18,22 40,40 20,52 C0,64 -30,46 -30,20 C-30,-8 -30,-46 0,-46 Z"
+                  fill="url(#chromeIri)" style="mix-blend-mode:screen"/>
+            <ellipse cx="-6" cy="-14" rx="18" ry="10" fill="#fff" opacity=".5"/>
+          </g>
+        </svg>
+      </div>
+
+      <div>
+        <div class="thumbs">
+          <a class="thumb reveal" href="https://gradlaunchuk.com" target="_blank" rel="noopener" style="--c:rgba(141,255,60,.3)">
+            <div class="glow"></div><div class="t-live">● Live</div>
+            <div class="t-name">GradLaunch</div><div class="t-go">gradlaunchuk.com ↗</div>
+          </a>
+          <a class="thumb reveal" href="https://cybermark-olive.vercel.app" target="_blank" rel="noopener" style="--c:rgba(90,140,255,.3)">
+            <div class="glow"></div><div class="t-live">● Live</div>
+            <div class="t-name">CyberMark</div><div class="t-go">View app ↗</div>
+          </a>
+          <a class="thumb reveal" href="https://scamshield-uk.vercel.app" target="_blank" rel="noopener" style="--c:rgba(255,180,60,.28)">
+            <div class="glow"></div><div class="t-live">● Live</div>
+            <div class="t-name">ScamShield</div><div class="t-go">View app ↗</div>
+          </a>
+        </div>
+        <div class="hero-year">2026</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap">
+    <div class="kicker"><b>—</b> About me</div>
+    <div class="about-grid">
+      <div class="about-head reveal">
+        <h2>I deliver secure, well-built products across the whole stack.</h2>
+        <div class="socials">
+          <a href="https://github.com/sohelhabib" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://linkedin.com/in/md-sohel-habib-861609111" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="about-photo reveal">
+        <img src="IMG_3612.PNG" alt="Md Sohel Habib">
+      </div>
+      <div class="about-bio reveal">
+        <div class="name">Md Sohel <em>Habib</em></div>
+        <p>MSc Technology Management with Cybersecurity at <b>BPP University London</b> (Sept 2026). I founded and run <b>GradLaunch</b> solo, keep three apps live in production, and spent nearly three years handling sensitive records in a university tech cell.</p>
+        <p><b>UK Graduate visa — no sponsorship required.</b> Currently open to security, GRC and full-stack roles in London.</p>
+        <a class="btn btn-line" href="#do">Learn more</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT I DO ============ -->
+<section id="do" class="do">
+  <svg class="chrome do-blob spin" viewBox="0 0 150 150" aria-hidden="true">
+    <g transform="translate(75,75)"><circle r="58" fill="url(#chrome)"/><circle r="58" fill="url(#chromeIri)" style="mix-blend-mode:screen"/><ellipse cx="-16" cy="-20" rx="20" ry="12" fill="#fff" opacity=".55"/></g>
+  </svg>
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker"><b>—</b> What I do</div>
+      <h2 class="big-head">Services I <em>offer.</em></h2>
+    </div>
+    <div class="do-list reveal">
+      <div class="do-row"><div class="rn">01</div><div class="rt">Full-stack build</div><div class="rd">Next.js, TypeScript, Supabase, MongoDB — from database to deploy, solo.</div></div>
+      <div class="do-row"><div class="rn">02</div><div class="rt">Security & GRC</div><div class="rd">ISO 27001, UK GDPR, NIST CSF, Microsoft Purview — secure-by-design, compliant.</div></div>
+      <div class="do-row"><div class="rn">03</div><div class="rt">Deploy & ship</div><div class="rd">Vercel, Render, MongoDB Atlas — three live products in production.</div></div>
+      <div class="do-row"><div class="rn">04</div><div class="rt">Photography</div><div class="rd">The same eye for detail, pointed at the world instead of a codebase.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHOTOGRAPHY ============ -->
+<!-- ============ PHOTOGRAPHY ============ -->
+<section id="photo">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker"><b>—</b> Through the lens</div>
+      <h2 class="big-head">I also <em>shoot.</em></h2>
+    </div>
+    <div class="photo-masonry reveal">
+      <a class="shot" href="photos/IMG_1.jpg" target="_blank"><img src="photos/IMG_1.jpg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_2.jpg" target="_blank"><img src="photos/IMG_2.jpg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_3.jpg" target="_blank"><img src="photos/IMG_3.jpg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_4.jpg" target="_blank"><img src="photos/IMG_4.jpg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_5.jpg" target="_blank"><img src="photos/IMG_5.jpg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_2134.JPG (1).jpeg" target="_blank"><img src="photos/IMG_2134.JPG (1).jpeg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK (full project list) ============ -->
+<section id="work">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker"><b>—</b> My projects</div>
+      <h2 class="big-head">Things I've <em>shipped.</em></h2>
+    </div>
+    <div class="do-list reveal">
+      <a class="do-row" href="https://gradlaunchuk.com" target="_blank" rel="noopener"><div class="rn">01</div><div class="rt">GradLaunch</div><div class="rd">UK graduate job platform — Reed API, CV parsing, sponsorship jobs, GDPR. gradlaunchuk.com ↗</div></a>
+      <a class="do-row" href="https://cybermark-olive.vercel.app" target="_blank" rel="noopener"><div class="rn">02</div><div class="rt">CyberMark</div><div class="rd">Cyber Essentials readiness checker for UK SMEs — Vercel, Render, Atlas. ↗</div></a>
+      <a class="do-row" href="https://scamshield-uk.vercel.app" target="_blank" rel="noopener"><div class="rn">03</div><div class="rt">ScamShield</div><div class="rd">Scam-detection tool for UK users — built & deployed end to end. ↗</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIAL ============ -->
+<section class="quote">
+  <svg class="chrome q-blob spin-r" viewBox="0 0 160 160" aria-hidden="true">
+    <g transform="translate(80,80)"><circle r="62" fill="url(#chrome)"/><circle r="62" fill="url(#chromeIri)" style="mix-blend-mode:screen"/><ellipse cx="-18" cy="-22" rx="22" ry="13" fill="#fff" opacity=".55"/></g>
+  </svg>
+  <div class="wrap">
+    <div class="q-inner reveal">
+      <div class="q-mark">"</div>
+      <blockquote>Sohel shipped our feature in days and flagged security gaps nobody else spotted — <em>genuinely impressive.</em></blockquote>
+      <div class="q-who">
+        <div class="av">AR</div>
+        <div class="m"><strong>Mohammed Asim</strong><span>Product Lead, Metro Builders, IND</span></div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONNECT ============ -->
+<section id="connect" class="connect">
+  <svg class="chrome c-blob spin" viewBox="0 0 150 150" aria-hidden="true">
+    <g transform="translate(75,75)"><circle r="58" fill="url(#chrome)"/><circle r="58" fill="url(#chromeIri)" style="mix-blend-mode:screen"/><ellipse cx="-16" cy="-20" rx="20" ry="12" fill="#fff" opacity=".55"/></g>
+  </svg>
+  <div class="wrap">
+    <div class="kicker"><b>—</b> Ready to connect?</div>
+    <div class="c-grid">
+      <h2><a href="mailto:mdsohelhabib@email.com">CONNECT</a></h2>
+      <div class="c-side">
+        <p class="lead">Open to security, GRC & full-stack roles in London. No sponsorship required.</p>
+        <a class="btn btn-fill" href="mailto:your@email.com">Send me a message</a>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="fnav">
+        <a href="#about">About me</a>
+        <a href="#do">What I do</a>
+        <a href="#photo">Photos</a>
+        <a href="#work">My projects</a>
+        <a href="#connect">What they said</a>
+      </div>
+      <div class="fsoc">
+        <a href="https://github.com/sohelhabib" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/md-sohel-habib-861609111" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://gradlaunchuk.com" target="_blank" rel="noopener">GradLaunch</a>
+      </div>
+      <div class="cpy">© 2026 Md Sohel Habib — built & shipped in London</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // build the chrome flower petals
+  (function(){
+    const g = document.getElementById('petals');
+    if(!g) return;
+    const N = 12;
+    for(let i=0;i<N;i++){
+      const p = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+      p.setAttribute('cx','0'); p.setAttribute('cy','-52');
+      p.setAttribute('rx','12'); p.setAttribute('ry','34');
+      p.setAttribute('fill','url(#chrome)');
+      p.setAttribute('transform',`rotate(${i*(360/N)})`);
+      g.appendChild(p);
+    }
+    // iridescent overlay petals
+    for(let i=0;i<N;i++){
+      const p = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+      p.setAttribute('cx','0'); p.setAttribute('cy','-52');
+      p.setAttribute('rx','12'); p.setAttribute('ry','34');
+      p.setAttribute('fill','url(#chromeIri)');
+      p.setAttribute('style','mix-blend-mode:screen');
+      p.setAttribute('transform',`rotate(${i*(360/N)})`);
+      g.appendChild(p);
+    }
+  })();
+
+  // nav border + reveals
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20));
+  const io = new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // celestial starfield
+  (function(){
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cv = document.getElementById('sky'), ctx = cv.getContext('2d');
+    let W,H,DPR,stars=[],shooters=[],sY=0;
+    function resize(){
+      DPR=Math.min(devicePixelRatio||1,2);
+      W=cv.width=innerWidth*DPR; H=cv.height=innerHeight*DPR;
+      cv.style.width=innerWidth+'px'; cv.style.height=innerHeight+'px';
+      const n=Math.min(280,Math.floor(innerWidth*innerHeight/6500));
+      stars=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H*1.4,r:(Math.random()*1.3+.3)*DPR,z:Math.random()*.7+.3,tw:Math.random()*6.28,tws:Math.random()*.03+.008,hue:Math.random()<.15?95:(Math.random()<.5?220:0),sat:Math.random()<.4?40:0}));
+    }
+    function shooter(){const L=Math.random()<.5;shooters.push({x:L?-50:W+50,y:Math.random()*H*.5,vx:(L?1:-1)*(7+Math.random()*5)*DPR,vy:(2.5+Math.random()*2)*DPR,life:0,max:60+Math.random()*30});}
+    function frame(){
+      ctx.clearRect(0,0,W,H);
+      for(const s of stars){
+        s.tw+=s.tws;
+        const py=s.y - sY*DPR*s.z*.25, yy=((py%(H*1.4))+H*1.4)%(H*1.4);
+        const a=(0.4+Math.sin(s.tw)*0.4)*s.z+0.15;
+        ctx.beginPath(); ctx.fillStyle=s.sat?`hsla(${s.hue},70%,75%,${a})`:`rgba(255,255,255,${a})`;
+        ctx.arc(s.x,yy,s.r,0,6.28); ctx.fill();
+        if(s.r>1.4*DPR){ctx.beginPath();ctx.fillStyle=s.sat?`hsla(${s.hue},70%,70%,${a*.15})`:`rgba(255,255,255,${a*.15})`;ctx.arc(s.x,yy,s.r*3,0,6.28);ctx.fill();}
+      }
+      for(let i=shooters.length-1;i>=0;i--){
+        const m=shooters[i]; m.x+=m.vx;m.y+=m.vy;m.life++;
+        const f=1-m.life/m.max,len=120*DPR,h=Math.hypot(m.vx,m.vy);
+        const g=ctx.createLinearGradient(m.x,m.y,m.x-m.vx/h*len,m.y-m.vy/h*len);
+        g.addColorStop(0,`rgba(255,255,255,${.9*f})`); g.addColorStop(.3,`rgba(141,255,60,${.5*f})`); g.addColorStop(1,'rgba(141,255,60,0)');
+        ctx.strokeStyle=g; ctx.lineWidth=2*DPR; ctx.lineCap='round';
+        ctx.beginPath(); ctx.moveTo(m.x,m.y); ctx.lineTo(m.x-m.vx/h*len,m.y-m.vy/h*len); ctx.stroke();
+        if(m.life>m.max) shooters.splice(i,1);
+      }
+      if(!reduce && Math.random()<.004 && shooters.length<2) shooter();
+      requestAnimationFrame(frame);
+    }
+    addEventListener('scroll',()=>{sY=window.scrollY;},{passive:true});
+    addEventListener('resize',resize); resize();
+    if(reduce){for(const s of stars){ctx.beginPath();ctx.fillStyle=`rgba(255,255,255,${.5*s.z})`;ctx.arc(s.x,s.y%H,s.r,0,6.28);ctx.fill();}}
+    else requestAnimationFrame(frame);
+  })();
+</script>
+
+</body>
+</html>
