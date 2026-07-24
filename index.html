@@ -59,6 +59,19 @@
   .nav-links a:hover{color:var(--ink)}
   @media(max-width:760px){.nav-links{display:none}.nav-inner{padding:16px 20px}}
 
+  .burger{display:none;background:none;border:0;cursor:pointer;padding:8px;margin:-8px;width:40px;height:40px;position:relative;z-index:70}
+  .burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px auto;transition:transform .3s,opacity .2s}
+  .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-menu{position:fixed;inset:0;background:rgba(6,6,10,.97);backdrop-filter:blur(14px);z-index:65;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:0 32px;opacity:0;pointer-events:none;transition:opacity .3s}
+  .mobile-menu.open{opacity:1;pointer-events:auto}
+  .mobile-menu a{font-family:var(--display);text-transform:uppercase;font-size:34px;line-height:1.25;color:var(--ink);transition:color .2s}
+  .mobile-menu a:active{color:var(--accent)}
+  .mobile-menu .mm-mail{font-family:var(--body);font-size:14px;text-transform:none;color:var(--ink-dim);margin-top:28px}
+  @media(max-width:760px){.burger{display:block}}
+  @media(min-width:761px){.mobile-menu{display:none}}
+
   header{position:relative;padding:130px 0 70px;z-index:2}
   .hero-top{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:start}
   @media(max-width:920px){.hero-top{grid-template-columns:1fr}}
@@ -128,6 +141,27 @@
   .do-row .rd{color:var(--ink-dim);font-size:13.5px;max-width:360px;text-align:right}
   @media(max-width:760px){.do-row{grid-template-columns:1fr;gap:8px}.do-row .rd{text-align:left;max-width:none}.do-row .rn{display:none}}
 
+  .proj-item{border-bottom:1px solid var(--line)}
+  .proj-toggle{width:100%;background:none;border:0;color:inherit;font-family:inherit;cursor:pointer;text-align:left;grid-template-columns:60px 1fr auto 30px}
+  .proj-toggle .chev{font-family:var(--wide);font-weight:600;font-size:22px;color:var(--ink-faint);transition:transform .3s,color .3s;justify-self:end;line-height:1}
+  .proj-toggle[aria-expanded="true"] .chev{transform:rotate(45deg);color:var(--accent)}
+  .proj-toggle[aria-expanded="true"] .rt{color:var(--accent)}
+  .proj-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.7,.2,1)}
+  .proj-panel.open{grid-template-rows:1fr}
+  .proj-inner{overflow:hidden;min-height:0}
+  .proj-text{padding:4px 0 32px;max-width:760px}
+  .proj-text p{color:var(--ink-dim);font-size:14.5px;margin-bottom:14px}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+  .proj-tags span{font-size:11px;letter-spacing:.04em;color:var(--ink-faint);border:1px solid var(--line);border-radius:5px;padding:5px 10px}
+  .proj-visit{display:inline-block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);border-bottom:1px solid rgba(141,255,60,.35);padding-bottom:3px;transition:border-color .2s}
+  .proj-visit:hover{border-color:var(--accent)}
+  @media(max-width:760px){
+    .proj-toggle{grid-template-columns:1fr 30px;gap:6px}
+    .proj-toggle .chev{grid-row:1;grid-column:2;align-self:start}
+    .proj-toggle .rt{grid-column:1}
+    .proj-toggle .rd{grid-column:1}
+  }
+
   .photo-masonry{columns:3;column-gap:16px}
   @media(max-width:900px){.photo-masonry{columns:2}}
   @media(max-width:560px){.photo-masonry{columns:1}}
@@ -168,24 +202,7 @@
   .foot .fsoc a{color:var(--ink-dim);transition:color .2s}
   .foot .fsoc a:hover{color:var(--accent)}
   .foot .cpy{width:100%;font-size:12px;color:var(--ink-faint);margin-top:8px}
-  .proj-item{border-bottom:1px solid var(--line)}
-  .proj-toggle{width:100%;background:none;border:0;border-bottom:0;color:inherit;font-family:inherit;cursor:pointer;text-align:left;grid-template-columns:60px 1fr auto 30px}
-  .proj-toggle .chev{font-family:var(--wide);font-weight:600;font-size:22px;color:var(--ink-faint);transition:transform .3s,color .3s;justify-self:end;line-height:1}
-  .proj-toggle[aria-expanded="true"] .chev{transform:rotate(45deg);color:var(--accent)}
-  .proj-toggle[aria-expanded="true"] .rt{color:var(--accent)}
-  .proj-panel{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.7,.2,1)}
-  .proj-inner{padding:4px 0 32px;max-width:760px}
-  .proj-inner p{color:var(--ink-dim);font-size:14.5px;margin-bottom:14px}
-  .proj-tags{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
-  .proj-tags span{font-size:11px;letter-spacing:.04em;color:var(--ink-faint);border:1px solid var(--line);border-radius:5px;padding:5px 10px}
-  .proj-visit{display:inline-block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);border-bottom:1px solid rgba(141,255,60,.35);padding-bottom:3px;transition:border-color .2s}
-  .proj-visit:hover{border-color:var(--accent)}
-  @media(max-width:760px){
-    .proj-toggle{grid-template-columns:1fr 30px;gap:6px}
-    .proj-toggle .chev{grid-row:1;grid-column:2;align-self:start}
-    .proj-toggle .rt{grid-column:1}
-    .proj-toggle .rd{grid-column:1}
-  }
+
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}h1 .l span{animation:none;transform:none}}
@@ -218,7 +235,7 @@
 
 <nav id="nav">
   <div class="nav-inner">
-    <div class="brand">MD<span> </span>SOHEL<span> </span>HABIB</div>
+    <div class="brand">MD<span>.</span>SOHEL<span>.</span>HABIB</div>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#do">What I Do</a>
@@ -226,8 +243,20 @@
       <a href="#work">Projects</a>
       <a href="#connect">Connect</a>
     </div>
+    <button class="burger" id="burger" aria-expanded="false" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#do">What I Do</a>
+  <a href="#photo">Photos</a>
+  <a href="#work">Projects</a>
+  <a href="#connect">Connect</a>
+  <a class="mm-mail" href="mailto:mdsohelhabib@gmail.com">mdsohelhabib@gmail.com</a>
+</div>
 
 <header>
   <div class="wrap">
@@ -327,12 +356,12 @@
       <h2 class="big-head">I also <em>shoot.</em></h2>
     </div>
     <div class="photo-masonry reveal">
-      <a class="shot" href="photos/IMG_1.jpg" target="_blank"><img src="photos/IMG_1.jpg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
-      <a class="shot" href="photos/IMG_2.jpg" target="_blank"><img src="photos/IMG_2.jpg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
-      <a class="shot" href="photos/IMG_3.jpg" target="_blank"><img src="photos/IMG_3.jpg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
-      <a class="shot" href="photos/IMG_4.jpg" target="_blank"><img src="photos/IMG_4.jpg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
-      <a class="shot" href="photos/IMG_5.jpg" target="_blank"><img src="photos/IMG_5.jpg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
-      <a class="shot" href="photos/IMG_2134.JPG (1).jpeg" target="_blank"><img src="photos/IMG_2134.JPG (1).jpeg" alt="Photo by Sohel"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_1.jpg" target="_blank"><img src="photos/IMG_1.jpg" alt="Photograph by Md Sohel Habib"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_2.jpg" target="_blank"><img src="photos/IMG_2.jpg" alt="Photograph by Md Sohel Habib"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_3.jpg" target="_blank"><img src="photos/IMG_3.jpg" alt="Photograph by Md Sohel Habib"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_4.jpg" target="_blank"><img src="photos/IMG_4.jpg" alt="Photograph by Md Sohel Habib"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_5.jpg" target="_blank"><img src="photos/IMG_5.jpg" alt="Photograph by Md Sohel Habib"><div class="cap"><span>London</span></div></a>
+      <a class="shot" href="photos/IMG_2134.JPG (1).jpeg" target="_blank"><img src="photos/IMG_2134.JPG (1).jpeg" alt="Photograph by Md Sohel Habib"><div class="cap"><span>London</span></div></a>
     </div>
   </div>
 </section>
@@ -354,10 +383,12 @@
         </button>
         <div class="proj-panel" id="p1">
           <div class="proj-inner">
-            <p>GradLaunch is a job platform I founded and run on my own, built for UK graduates trying to break into their first role. I handle everything end to end — the database, the frontend, deployment, and the compliance side.</p>
-            <p>It pulls live vacancies through the Reed API, parses uploaded CVs to match candidates against listings, and has a dedicated page for roles offering visa sponsorship, which is the single hardest thing for international students to find. The whole platform is GDPR compliant, with proper consent handling and data retention rules rather than a bolted-on cookie banner.</p>
-            <div class="proj-tags"><span>Next.js 14</span><span>TypeScript</span><span>Supabase</span><span>Reed API</span><span>GDPR</span></div>
-            <a class="proj-visit" href="https://gradlaunchuk.com" target="_blank" rel="noopener">Visit gradlaunchuk.com ↗</a>
+            <div class="proj-text">
+              <p>GradLaunch is a job platform I founded and run on my own, built for UK graduates trying to break into their first role. I handle everything end to end — the database, the frontend, deployment, and the compliance side.</p>
+              <p>It pulls live vacancies through the Reed API, parses uploaded CVs to match candidates against listings, and has a dedicated page for roles offering visa sponsorship, which is the single hardest thing for international students to find. The whole platform is GDPR compliant, with proper consent handling and data retention rules rather than a bolted-on cookie banner.</p>
+              <div class="proj-tags"><span>Next.js 14</span><span>TypeScript</span><span>Supabase</span><span>Reed API</span><span>GDPR</span></div>
+              <a class="proj-visit" href="https://gradlaunchuk.com" target="_blank" rel="noopener">Visit gradlaunchuk.com ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -371,10 +402,12 @@
         </button>
         <div class="proj-panel" id="p2">
           <div class="proj-inner">
-            <p>CyberMark helps small UK businesses work out whether they would actually pass Cyber Essentials certification before they pay to be assessed. Most SMEs have no security team and no clear idea where the gaps are.</p>
-            <p>The tool walks them through the five control areas, scores their answers, and returns a plain-English breakdown of what needs fixing first. I built and deployed the full stack myself across Vercel, Render and MongoDB Atlas — my first proper end-to-end deployment.</p>
-            <div class="proj-tags"><span>Node.js</span><span>MongoDB Atlas</span><span>Vercel</span><span>Render</span><span>Cyber Essentials</span></div>
-            <a class="proj-visit" href="https://cybermark-olive.vercel.app" target="_blank" rel="noopener">View CyberMark ↗</a>
+            <div class="proj-text">
+              <p>CyberMark helps small UK businesses work out whether they would actually pass Cyber Essentials certification before they pay to be assessed. Most SMEs have no security team and no clear idea where the gaps are.</p>
+              <p>The tool walks them through the five control areas, scores their answers, and returns a plain-English breakdown of what needs fixing first. I built and deployed the full stack myself across Vercel, Render and MongoDB Atlas — my first proper end-to-end deployment.</p>
+              <div class="proj-tags"><span>Node.js</span><span>MongoDB Atlas</span><span>Vercel</span><span>Render</span><span>Cyber Essentials</span></div>
+              <a class="proj-visit" href="https://cybermark-olive.vercel.app" target="_blank" rel="noopener">View CyberMark ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -388,10 +421,12 @@
         </button>
         <div class="proj-panel" id="p3">
           <div class="proj-inner">
-            <p>ScamShield came out of watching how many people around me were getting hit by convincing phishing texts and fake delivery notifications, especially students and older relatives who had no easy way to check.</p>
-            <p>It lets someone paste a suspicious message or link and get back an assessment of the warning signs, explained in normal language rather than security jargon. Built and shipped solo as part of a run of security tools I put out independently.</p>
-            <div class="proj-tags"><span>Next.js</span><span>Vercel</span><span>Security</span></div>
-            <a class="proj-visit" href="https://scamshield-uk.vercel.app" target="_blank" rel="noopener">View ScamShield ↗</a>
+            <div class="proj-text">
+              <p>ScamShield came out of watching how many people around me were getting hit by convincing phishing texts and fake delivery notifications, especially students and older relatives who had no easy way to check.</p>
+              <p>It lets someone paste a suspicious message or link and get back an assessment of the warning signs, explained in normal language rather than security jargon. Built and shipped solo as part of a run of security tools I put out independently.</p>
+              <div class="proj-tags"><span>Next.js</span><span>Vercel</span><span>Security</span></div>
+              <a class="proj-visit" href="https://scamshield-uk.vercel.app" target="_blank" rel="noopener">View ScamShield ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -473,27 +508,43 @@
   var nav = document.getElementById('nav');
   addEventListener('scroll', function(){ nav.classList.toggle('scrolled', scrollY > 20); });
 
-  var io = new IntersectionObserver(function(es){
-
-    document.querySelectorAll('.proj-toggle').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var panel = document.getElementById(btn.getAttribute('aria-controls'));
-      var open = btn.getAttribute('aria-expanded') === 'true';
-      document.querySelectorAll('.proj-toggle').forEach(function(other){
-        if(other !== btn){
-          other.setAttribute('aria-expanded','false');
-          document.getElementById(other.getAttribute('aria-controls')).style.maxHeight = null;
-        }
-      });
-      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
-      panel.style.maxHeight = open ? null : panel.scrollHeight + 'px';
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+    mobileMenu.classList.toggle('open', !open);
+    document.body.style.overflow = open ? '' : 'hidden';
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      burger.setAttribute('aria-expanded','false');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
     });
   });
 
-  
+  var io = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  document.querySelectorAll('.proj-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      var open = btn.getAttribute('aria-expanded') === 'true';
+
+      document.querySelectorAll('.proj-toggle').forEach(function(other){
+        other.setAttribute('aria-expanded','false');
+        document.getElementById(other.getAttribute('aria-controls')).classList.remove('open');
+      });
+
+      if(!open){
+        btn.setAttribute('aria-expanded','true');
+        panel.classList.add('open');
+      }
+    });
+  });
 
   (function(){
     var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
