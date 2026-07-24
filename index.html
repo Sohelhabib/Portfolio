@@ -168,7 +168,24 @@
   .foot .fsoc a{color:var(--ink-dim);transition:color .2s}
   .foot .fsoc a:hover{color:var(--accent)}
   .foot .cpy{width:100%;font-size:12px;color:var(--ink-faint);margin-top:8px}
-
+  .proj-item{border-bottom:1px solid var(--line)}
+  .proj-toggle{width:100%;background:none;border:0;border-bottom:0;color:inherit;font-family:inherit;cursor:pointer;text-align:left;grid-template-columns:60px 1fr auto 30px}
+  .proj-toggle .chev{font-family:var(--wide);font-weight:600;font-size:22px;color:var(--ink-faint);transition:transform .3s,color .3s;justify-self:end;line-height:1}
+  .proj-toggle[aria-expanded="true"] .chev{transform:rotate(45deg);color:var(--accent)}
+  .proj-toggle[aria-expanded="true"] .rt{color:var(--accent)}
+  .proj-panel{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.7,.2,1)}
+  .proj-inner{padding:4px 0 32px;max-width:760px}
+  .proj-inner p{color:var(--ink-dim);font-size:14.5px;margin-bottom:14px}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+  .proj-tags span{font-size:11px;letter-spacing:.04em;color:var(--ink-faint);border:1px solid var(--line);border-radius:5px;padding:5px 10px}
+  .proj-visit{display:inline-block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);border-bottom:1px solid rgba(141,255,60,.35);padding-bottom:3px;transition:border-color .2s}
+  .proj-visit:hover{border-color:var(--accent)}
+  @media(max-width:760px){
+    .proj-toggle{grid-template-columns:1fr 30px;gap:6px}
+    .proj-toggle .chev{grid-row:1;grid-column:2;align-self:start}
+    .proj-toggle .rt{grid-column:1}
+    .proj-toggle .rd{grid-column:1}
+  }
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}h1 .l span{animation:none;transform:none}}
@@ -327,9 +344,58 @@
       <h2 class="big-head">Things I've <em>shipped.</em></h2>
     </div>
     <div class="do-list reveal">
-      <a class="do-row" href="https://gradlaunchuk.com" target="_blank" rel="noopener"><div class="rn">01</div><div class="rt">GradLaunch</div><div class="rd">UK graduate job platform — Reed API, CV parsing, sponsorship jobs, GDPR. gradlaunchuk.com ↗</div></a>
-      <a class="do-row" href="https://cybermark-olive.vercel.app" target="_blank" rel="noopener"><div class="rn">02</div><div class="rt">CyberMark</div><div class="rd">Cyber Essentials readiness checker for UK SMEs — Vercel, Render, Atlas. ↗</div></a>
-      <a class="do-row" href="https://scamshield-uk.vercel.app" target="_blank" rel="noopener"><div class="rn">03</div><div class="rt">ScamShield</div><div class="rd">Scam-detection tool for UK users — built &amp; deployed end to end. ↗</div></a>
+
+      <div class="proj-item">
+        <button class="do-row proj-toggle" aria-expanded="false" aria-controls="p1">
+          <div class="rn">01</div>
+          <div class="rt">GradLaunch</div>
+          <div class="rd">UK graduate job platform — Reed API, CV parsing, sponsorship jobs, GDPR.</div>
+          <div class="chev" aria-hidden="true">+</div>
+        </button>
+        <div class="proj-panel" id="p1">
+          <div class="proj-inner">
+            <p>GradLaunch is a job platform I founded and run on my own, built for UK graduates trying to break into their first role. I handle everything end to end — the database, the frontend, deployment, and the compliance side.</p>
+            <p>It pulls live vacancies through the Reed API, parses uploaded CVs to match candidates against listings, and has a dedicated page for roles offering visa sponsorship, which is the single hardest thing for international students to find. The whole platform is GDPR compliant, with proper consent handling and data retention rules rather than a bolted-on cookie banner.</p>
+            <div class="proj-tags"><span>Next.js 14</span><span>TypeScript</span><span>Supabase</span><span>Reed API</span><span>GDPR</span></div>
+            <a class="proj-visit" href="https://gradlaunchuk.com" target="_blank" rel="noopener">Visit gradlaunchuk.com ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-item">
+        <button class="do-row proj-toggle" aria-expanded="false" aria-controls="p2">
+          <div class="rn">02</div>
+          <div class="rt">CyberMark</div>
+          <div class="rd">Cyber Essentials readiness checker for UK SMEs.</div>
+          <div class="chev" aria-hidden="true">+</div>
+        </button>
+        <div class="proj-panel" id="p2">
+          <div class="proj-inner">
+            <p>CyberMark helps small UK businesses work out whether they would actually pass Cyber Essentials certification before they pay to be assessed. Most SMEs have no security team and no clear idea where the gaps are.</p>
+            <p>The tool walks them through the five control areas, scores their answers, and returns a plain-English breakdown of what needs fixing first. I built and deployed the full stack myself across Vercel, Render and MongoDB Atlas — my first proper end-to-end deployment.</p>
+            <div class="proj-tags"><span>Node.js</span><span>MongoDB Atlas</span><span>Vercel</span><span>Render</span><span>Cyber Essentials</span></div>
+            <a class="proj-visit" href="https://cybermark-olive.vercel.app" target="_blank" rel="noopener">View CyberMark ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-item">
+        <button class="do-row proj-toggle" aria-expanded="false" aria-controls="p3">
+          <div class="rn">03</div>
+          <div class="rt">ScamShield</div>
+          <div class="rd">Scam-detection tool for UK users — built &amp; deployed end to end.</div>
+          <div class="chev" aria-hidden="true">+</div>
+        </button>
+        <div class="proj-panel" id="p3">
+          <div class="proj-inner">
+            <p>ScamShield came out of watching how many people around me were getting hit by convincing phishing texts and fake delivery notifications, especially students and older relatives who had no easy way to check.</p>
+            <p>It lets someone paste a suspicious message or link and get back an assessment of the warning signs, explained in normal language rather than security jargon. Built and shipped solo as part of a run of security tools I put out independently.</p>
+            <div class="proj-tags"><span>Next.js</span><span>Vercel</span><span>Security</span></div>
+            <a class="proj-visit" href="https://scamshield-uk.vercel.app" target="_blank" rel="noopener">View ScamShield ↗</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -408,6 +474,23 @@
   addEventListener('scroll', function(){ nav.classList.toggle('scrolled', scrollY > 20); });
 
   var io = new IntersectionObserver(function(es){
+
+    document.querySelectorAll('.proj-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.proj-toggle').forEach(function(other){
+        if(other !== btn){
+          other.setAttribute('aria-expanded','false');
+          document.getElementById(other.getAttribute('aria-controls')).style.maxHeight = null;
+        }
+      });
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      panel.style.maxHeight = open ? null : panel.scrollHeight + 'px';
+    });
+  });
+
+  
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
